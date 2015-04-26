@@ -3,18 +3,20 @@ package tfo.matcher.file;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.Objects;
 
 final class MissesDirectoryMatcher extends TypeSafeDiagnosingMatcher<File> {
-	private final String name;
+	private final @NotNull String name;
 
-	MissesDirectoryMatcher(String name) {
-		this.name = name;
+	MissesDirectoryMatcher(@NotNull String name) {
+		this.name = Objects.requireNonNull(name);
 	}
 
 	@Override
-	protected boolean matchesSafely(File item, Description mismatchDescription) {
+	protected boolean matchesSafely(@NotNull File item, @NotNull Description mismatchDescription) {
 		if (!item.exists()) {
 			mismatchDescription.appendValue(item);
 			mismatchDescription.appendText(" does not exist.");
@@ -41,22 +43,17 @@ final class MissesDirectoryMatcher extends TypeSafeDiagnosingMatcher<File> {
 					mismatchDescription.appendText(String.valueOf(files.length));
 					mismatchDescription.appendText(" entries: ");
 				}
-				for (int i = 0; i < files.length; i++) {
-					final File file = files[i];
-					mismatchDescription.appendText(file.getName());
-					if (i < files.length) {
-						mismatchDescription.appendText(", ");
-					}
-				}
-				return false;
+
+                ListHelper.appendFileList(files, mismatchDescription);
+                return false;
 			}
 		}
 
 		return true;
 	}
 
-	@Override
-	public void describeTo(Description description) {
+    @Override
+	public void describeTo(@NotNull Description description) {
 		description.appendText(String.format("a directory that does not contain directory '%s'", name));
 	}
 }
