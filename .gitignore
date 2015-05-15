@@ -15,3 +15,5 @@ gradle.properties
 .DS_Store
 .AppleDouble
 .LSOverride
+
+gradle.properties
