@@ -1,4 +1,4 @@
-package tfo.matcher.file;
+package tfo.junit.matcher.file;
 
 import org.hamcrest.Description;
 import org.jetbrains.annotations.NotNull;
