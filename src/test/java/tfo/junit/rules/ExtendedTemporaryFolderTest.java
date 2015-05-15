@@ -13,6 +13,11 @@ public class ExtendedTemporaryFolderTest {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
+    // There's no unit test whether an exception is thrown if some files could not be
+    // deleted: our CI/development is on POSIX systems and it's possible to delete
+    // files there. It's only Windows that doesn't like deleting locked files...
+
+
     @Test
     public void folderNameShouldContainLabel() throws Exception {
         final ExtendedTemporaryFolder subject = new ExtendedTemporaryFolder("label");
