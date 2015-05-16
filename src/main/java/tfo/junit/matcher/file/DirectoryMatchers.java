@@ -1,4 +1,4 @@
-package tfo.matcher.file;
+package tfo.junit.matcher.file;
 
 
 import org.hamcrest.Factory;
