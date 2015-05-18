@@ -6,6 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import java.io.File;
 import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -15,7 +16,7 @@ public class ContainsDirectoryMatcherTest {
 
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
-    private final ContainsDirectoryMatcher subject = new ContainsDirectoryMatcher("dir");
+    private final ContainsDirectoryMatcher<File> subject = new ContainsDirectoryMatcher<>("dir");
     private final Description desc = new StringDescription();
 
     @Test
