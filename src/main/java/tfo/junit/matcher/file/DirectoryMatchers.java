@@ -43,6 +43,12 @@ public final class DirectoryMatchers {
 		return new ContainsFileMatcher<>(name);
 	}
 
+    /**
+     * Checks whether a directory contains a number of files.
+     *
+     * @param number the number of files to expect. Must be >= 0.
+     * @return the matcher.
+     */
     @Factory
     @NotNull
     public static Matcher<File> containsNumberOfFiles(int number) {
@@ -56,9 +62,49 @@ public final class DirectoryMatchers {
         return result;
     }
 
+    /**
+     * Checks whether a directory contains a number of files.
+     *
+     * @param number the number of files to expect. Must be >= 0.
+     * @return the matcher.
+     */
     @Factory
     @NotNull
-    public static Matcher<File> containsNumberOfFiles(Matcher<? super Integer> matcher) {
+    public static Matcher<Path> containsNumberOfFilesByPath(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("There can't be less than zero files. But you expected " + number);
+        }
+        final ContainsNumberOfFilesMatcher<Path> result = new ContainsNumberOfFilesMatcher<>(equalTo(number));
+        if (number == 0) {
+            return describedAs("a directory with no files", result);
+        }
+        return result;
+    }
+
+    /**
+     * Checks whether a directory contains a number of files.
+     *
+     * @param matcher the matcher that checks the number of files.
+     * @return the matcher.
+     */
+    @Factory
+    @NotNull
+    public static Matcher<File> containsNumberOfFiles(@NotNull Matcher<? super Integer> matcher) {
+        Objects.requireNonNull(matcher);
+        // there's no further error checking here, because there's no way to know if got something useful passed into
+        // this method.
+        return new ContainsNumberOfFilesMatcher<>(matcher);
+    }
+
+    /**
+     * Checks whether a directory contains a number of files.
+     *
+     * @param matcher the matcher that checks the number of files.
+     * @return the matcher.
+     */
+    @Factory
+    @NotNull
+    public static Matcher<Path> containsNumberOfFilesByPath(@NotNull Matcher<? super Integer> matcher) {
         Objects.requireNonNull(matcher);
         // there's no further error checking here, because there's no way to know if got something useful passed into
         // this method.

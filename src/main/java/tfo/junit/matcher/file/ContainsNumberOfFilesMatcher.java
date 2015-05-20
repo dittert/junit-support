@@ -42,6 +42,36 @@ public class ContainsNumberOfFilesMatcher<T> extends TypeSafeDiagnosingMatcher<T
             return false;
         }
 
+        int fileCount = 0;
+        int dirCount = 0;
+        for (File file : files) {
+            if (file.isFile()) {
+                fileCount++;
+            } else if (file.isDirectory()) {
+                dirCount++;
+            }
+        }
+
+        if (numberMatcher.matches(fileCount)) {
+            return true;
+        }
+
+        mismatchDescription.appendText("a directory containing ");
+        if (fileCount == 0) {
+            mismatchDescription.appendText("no files");
+        } else {
+            mismatchDescription.appendValue(fileCount);
+            mismatchDescription.appendText(" files");
+        }
+        if (dirCount == 0) {
+            mismatchDescription.appendText(" and no directories");
+        } else if (dirCount == 1) {
+            mismatchDescription.appendText(" and one directory");
+        } else {
+            mismatchDescription.appendText(" and ");
+            mismatchDescription.appendValue(dirCount);
+            mismatchDescription.appendText(" directories");
+        }
         return false;
     }
 
