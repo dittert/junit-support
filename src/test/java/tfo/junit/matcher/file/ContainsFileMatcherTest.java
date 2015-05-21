@@ -16,7 +16,7 @@ public class ContainsFileMatcherTest {
 
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
-    private final ContainsFileMatcher subject = new ContainsFileMatcher("test.txt");
+    private final ContainsFileMatcher<File> subject = new ContainsFileMatcher<>("test.txt");
     private final Description desc = new StringDescription();
 
     @Test

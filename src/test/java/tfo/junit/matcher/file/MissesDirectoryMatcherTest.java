@@ -16,7 +16,7 @@ public class MissesDirectoryMatcherTest {
 
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
-    private final MissesDirectoryMatcher subject = new MissesDirectoryMatcher("test");
+    private final MissesDirectoryMatcher<File> subject = new MissesDirectoryMatcher<>("test");
     private final Description desc = new StringDescription();
 
     @Test

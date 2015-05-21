@@ -16,7 +16,7 @@ public class EmptyDirectoryMatcherTest {
 
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
-    private final EmptyDirectoryMatcher subject = new EmptyDirectoryMatcher();
+    private final EmptyDirectoryMatcher<File> subject = new EmptyDirectoryMatcher<>();
     private final Description desc = new StringDescription();
 
     @Test
