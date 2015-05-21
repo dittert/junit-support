@@ -96,6 +96,8 @@ public final class DirectoryMatchers {
         return new ContainsNumberOfFilesMatcher<>(matcher);
     }
 
+
+
     /**
      * Checks whether a directory contains a number of files.
      *
@@ -109,6 +111,76 @@ public final class DirectoryMatchers {
         // there's no further error checking here, because there's no way to know if got something useful passed into
         // this method.
         return new ContainsNumberOfFilesMatcher<>(matcher);
+    }
+
+    /**
+     * Checks whether a directory contains a number of subdirectories.
+     *
+     * @param number the number of directories to expect. Must be >= 0.
+     * @return the matcher.
+     */
+    @Factory
+    @NotNull
+    public static Matcher<File> containsNumberOfDirectories(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("There can't be less than zero directories. But you expected " + number);
+        }
+        final ContainsNumberOfDirectoriesMatcher<File> result = new ContainsNumberOfDirectoriesMatcher<>(equalTo(number));
+        if (number == 0) {
+            return describedAs("a directory with no subdirectories", result);
+        }
+        return result;
+    }
+
+    /**
+     * Checks whether a directory contains a number of subdirectories.
+     *
+     * @param number the number of files to expect. Must be >= 0.
+     * @return the matcher.
+     */
+    @Factory
+    @NotNull
+    public static Matcher<Path> containsNumberOfDirectoriesByPath(int number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("There can't be less than zero directories. But you expected " + number);
+        }
+        final ContainsNumberOfDirectoriesMatcher<Path> result = new ContainsNumberOfDirectoriesMatcher<>(equalTo(number));
+        if (number == 0) {
+            return describedAs("a directory with no subdirectories", result);
+        }
+        return result;
+    }
+
+    /**
+     * Checks whether a directory contains a number of subdirectories.
+     *
+     * @param matcher the matcher that checks the number of directories.
+     * @return the matcher.
+     */
+    @Factory
+    @NotNull
+    public static Matcher<File> containsNumberOfDirectories(@NotNull Matcher<? super Integer> matcher) {
+        Objects.requireNonNull(matcher);
+        // there's no further error checking here, because there's no way to know if got something useful passed into
+        // this method.
+        return new ContainsNumberOfDirectoriesMatcher<>(matcher);
+    }
+
+
+
+    /**
+     * Checks whether a directory contains a number of subdirectories.
+     *
+     * @param matcher the matcher that checks the number of directories.
+     * @return the matcher.
+     */
+    @Factory
+    @NotNull
+    public static Matcher<Path> containsNumberOfDirectoriesByPath(@NotNull Matcher<? super Integer> matcher) {
+        Objects.requireNonNull(matcher);
+        // there's no further error checking here, because there's no way to know if got something useful passed into
+        // this method.
+        return new ContainsNumberOfDirectoriesMatcher<>(matcher);
     }
 
     /**

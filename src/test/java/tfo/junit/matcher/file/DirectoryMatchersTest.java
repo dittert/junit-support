@@ -35,8 +35,31 @@ public class DirectoryMatchersTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void negativeNumberShouldThrow() {
+    public void negativeNumberShouldThrowForFiles() {
         DirectoryMatchers.containsNumberOfFiles(-1);
+    }
+
+    @Test
+    public void numberOfDirectoriesShouldBeReadable() {
+        final Matcher<File> subject = DirectoryMatchers.containsNumberOfDirectories(greaterThanOrEqualTo(3));
+
+        subject.describeTo(desc);
+
+        assertThat(desc.toString(), equalTo("a directory with the number of directories equal to or greater than <3>"));
+    }
+
+    @Test
+    public void numberOfDirectoriesShouldBeOptimized() {
+        final Matcher<File> subject = DirectoryMatchers.containsNumberOfDirectories(0);
+
+        subject.describeTo(desc);
+
+        assertThat(desc.toString(), equalTo("a directory with no subdirectories"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void negativeNumberShouldThrowForDirs() {
+        DirectoryMatchers.containsNumberOfDirectories(-1);
     }
 
 }
