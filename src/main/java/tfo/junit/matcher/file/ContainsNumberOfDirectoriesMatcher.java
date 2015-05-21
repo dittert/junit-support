@@ -11,7 +11,7 @@ import java.util.Objects;
 
 import static tfo.junit.matcher.file.Functions.toFile;
 
-public class ContainsNumberOfDirectoriesMatcher<T> extends TypeSafeDiagnosingMatcher<T> {
+final class ContainsNumberOfDirectoriesMatcher<T> extends TypeSafeDiagnosingMatcher<T> {
 
     private final Matcher<? super Integer> numberMatcher;
 
